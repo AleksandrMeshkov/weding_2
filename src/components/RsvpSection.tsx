@@ -3,17 +3,26 @@ import type { FormEvent } from 'react';
 import { motion } from 'framer-motion';
 
 type AttendanceOption = 'yes' | 'no' | '';
+type FormErrors = { fullName?: string; attendance?: string };
+
+const RSVP_EMAIL = import.meta.env.VITE_RSVP_EMAIL;
+const attendanceLabels: Record<Exclude<AttendanceOption, ''>, string> = {
+  yes: 'Да, с радостью приду',
+  no: 'К сожалению, не смогу присутствовать',
+};
 
 const RsvpSection: React.FC = () => {
   const [fullName, setFullName] = useState('');
   const [attendance, setAttendance] = useState<AttendanceOption>('');
-  const [errors, setErrors] = useState<{ fullName?: string; attendance?: string }>({});
-  const [submitted, setSubmitted] = useState(false);
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState('');
+  const [submitError, setSubmitError] = useState('');
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const nextErrors: { fullName?: string; attendance?: string } = {};
+    const nextErrors: FormErrors = {};
 
     if (!fullName.trim()) {
       nextErrors.fullName = 'Пожалуйста, укажите имя и фамилию';
@@ -26,11 +35,48 @@ const RsvpSection: React.FC = () => {
     setErrors(nextErrors);
 
     if (Object.keys(nextErrors).length > 0) {
-      setSubmitted(false);
+      setSubmitMessage('');
       return;
     }
 
-    setSubmitted(true);
+    if (!RSVP_EMAIL) {
+      setSubmitError('Не указан адрес для получения ответов. Добавьте VITE_RSVP_EMAIL в .env.local.');
+      setSubmitMessage('');
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitError('');
+    setSubmitMessage('');
+
+    try {
+      const response = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(RSVP_EMAIL)}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          name: fullName.trim(),
+          attendance: attendanceLabels[attendance as Exclude<AttendanceOption, ''>],
+          _subject: 'Новый ответ из анкеты гостя',
+          _captcha: 'false',
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('request_failed');
+      }
+
+      setSubmitMessage('Спасибо. Ваш ответ отправлен.');
+      setFullName('');
+      setAttendance('');
+      setErrors({});
+    } catch {
+      setSubmitError('Не удалось отправить ответ. Попробуйте ещё раз чуть позже.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -73,6 +119,7 @@ const RsvpSection: React.FC = () => {
               onChange={(event) => {
                 setFullName(event.target.value);
                 setErrors((current) => ({ ...current, fullName: undefined }));
+                setSubmitError('');
               }}
               placeholder="ФИО"
               className="w-full rounded-2xl border border-[#c9a96e]/30 bg-[#f9f5ef] px-5 py-4 font-sans text-base text-[#3d2e1e] placeholder:text-[#b7aa9b] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a96e]"
@@ -112,6 +159,7 @@ const RsvpSection: React.FC = () => {
                     onChange={(event) => {
                       setAttendance(event.target.value as AttendanceOption);
                       setErrors((current) => ({ ...current, attendance: undefined }));
+                      setSubmitError('');
                     }}
                     className="sr-only"
                   />
@@ -127,17 +175,22 @@ const RsvpSection: React.FC = () => {
           <div className="flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between">
             <button
               type="submit"
+              disabled={isSubmitting}
               className="inline-flex min-w-48 items-center justify-center rounded-full bg-[#3d2e1e] px-8 py-4 font-sans text-sm uppercase tracking-[0.25em] text-[#f9f5ef] transition-colors duration-200 hover:bg-[#533f29] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a96e]"
             >
-              Отправить
+              {isSubmitting ? 'Отправка...' : 'Отправить'}
             </button>
 
-            {submitted && (
+            {submitMessage && (
               <p className="font-sans text-sm text-[#8a7560] leading-relaxed md:max-w-xs">
-                Спасибо. Ваш ответ сохранён в этой форме. При необходимости мы можем позже подключить реальную отправку данных.
+                {submitMessage}
               </p>
             )}
           </div>
+
+          {submitError && (
+            <p className="mt-4 font-sans text-sm text-[#a05a4a]">{submitError}</p>
+          )}
         </motion.form>
 
         <div className="flex items-center justify-center mt-12" aria-hidden="true">

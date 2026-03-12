@@ -1,9 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Music, Music2 } from 'lucide-react';
+import weddingMusic from '../../music/beautiful-boys-nezhnaya-lyubov-77602132_lGN22CYu_gain.mp3';
 
 const InvitationSection: React.FC = () => {
   const [musicOn, setMusicOn] = useState(false);
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+
+    if (!audio) {
+      return;
+    }
+
+    if (musicOn) {
+      audio.play().catch(() => {
+        setMusicOn(false);
+      });
+    } else {
+      audio.pause();
+      audio.currentTime = 0;
+    }
+  }, [musicOn]);
 
   return (
     <section className="bg-[#f2ece2] py-24 px-6">
@@ -59,11 +78,7 @@ const InvitationSection: React.FC = () => {
             )}
             {musicOn ? 'Выключить музыку' : 'Включить музыку'}
           </motion.button>
-          {musicOn && (
-            <p className="mt-3 font-sans text-xs text-[#c9a96e]/70 tracking-wide">
-              Вставьте ссылку на аудио для воспроизведения
-            </p>
-          )}
+          <audio ref={audioRef} src={weddingMusic} preload="auto" />
 
           {/* Bottom decorative line */}
           <div className="flex items-center gap-4 justify-center mt-10" aria-hidden="true">

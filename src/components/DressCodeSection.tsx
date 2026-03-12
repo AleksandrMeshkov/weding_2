@@ -1,14 +1,18 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Phone } from 'lucide-react';
+import dresOne from '../../img/dres_one.png';
+import dresTwo from '../../img/dres_two.png';
+import dresThree from '../../img/dres_three.png';
+import dresFour from '../../img/dres_four.png';
+import dresFive from '../../img/dres_five.png';
 
 const palette = [
-  { name: 'Слоновая кость', hex: '#f5f0e8' },
-  { name: 'Шампань', hex: '#e8d5b0' },
-  { name: 'Пудровый', hex: '#e8c9b8' },
-  { name: 'Бежевый', hex: '#d4b896' },
-  { name: 'Тауп', hex: '#b8a898' },
-  { name: 'Тёмный крем', hex: '#8a7560' },
+  { name: 'Образ 1', image: dresOne },
+  { name: 'Образ 2', image: dresTwo },
+  { name: 'Образ 3', image: dresThree },
+  { name: 'Образ 4', image: dresFour },
+  { name: 'Образ 5', image: dresFive },
 ];
 
 const DressCodeSection: React.FC = () => {
@@ -30,19 +34,18 @@ const DressCodeSection: React.FC = () => {
               Мы будем очень благодарны, если вы поддержите цветовую палитру нашей свадьбы:
             </p>
 
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-3 gap-4 sm:grid-cols-5">
               {palette.map((color) => (
                 <motion.div
                   key={color.name}
                   whileHover={{ scale: 1.05 }}
-                  className="flex flex-col items-center gap-2"
+                  className="flex justify-center"
                 >
-                  <div
-                    className="w-12 h-12 rounded-full border border-[#c9a96e]/20 shadow-sm"
-                    style={{ backgroundColor: color.hex }}
-                    aria-label={color.name}
+                  <img
+                    src={color.image}
+                    alt={color.name}
+                    className="h-16 w-16 rounded-full border border-[#c9a96e]/20 object-cover shadow-sm md:h-20 md:w-20"
                   />
-                  <span className="font-sans text-xs text-[#8a7560] text-center leading-tight">{color.name}</span>
                 </motion.div>
               ))}
             </div>
@@ -68,12 +71,12 @@ const DressCodeSection: React.FC = () => {
                   <Phone className="w-4 h-4 text-[#c9a96e]" />
                 </div>
                 <div>
-                  <p className="font-serif text-lg text-[#3d2e1e] font-semibold">Яна</p>
+                  <p className="font-serif text-lg text-[#3d2e1e] font-semibold">Александра</p>
                   <a
-                    href="tel:+79876662828"
+                    href="tel:+79993009995"
                     className="font-sans text-sm text-[#c9a96e] tracking-wide hover:text-[#a8854e] transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a96e] rounded"
                   >
-                    +7-987-666-28-28
+                    +7-999-300-99-95
                   </a>
                 </div>
               </div>

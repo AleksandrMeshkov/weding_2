@@ -9,7 +9,7 @@ const WeddingFooter: React.FC = () => {
           Андрей & Ульяна
         </p>
         <p className="font-sans text-xs text-[#c9a96e]/50 tracking-[0.3em] uppercase mb-6">
-          26 · 08 · 2026
+          22 · 08 · 2026
         </p>
         <div className="flex items-center justify-center gap-2 mb-6" aria-hidden="true">
           <div className="flex-1 h-px bg-[#c9a96e]/20 max-w-[60px]" />

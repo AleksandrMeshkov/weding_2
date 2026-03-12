@@ -2,6 +2,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Heart } from 'lucide-react';
 
+const couplePhoto = new URL('../../img/IMG_4801.jpg', import.meta.url).href;
+
 const MONTH_DAYS = [
   [null, null, null, null, null, null, 1],
   [2, 3, 4, 5, 6, 7, 8],
@@ -27,9 +29,11 @@ const HeroSection: React.FC = () => {
         >
           <div className="relative">
             <div className="w-72 h-96 md:w-80 md:h-[420px] rounded-2xl overflow-hidden border border-[#c9a96e]/20 shadow-xl bg-[#ede8df] flex items-center justify-center">
-              <span className="text-[#c9a96e]/50 font-sans text-sm text-center px-6 leading-relaxed">
-                Фото жениха<br />и невесты
-              </span>
+              <img
+                src={couplePhoto}
+                alt="Андрей и Ульяна"
+                className="w-full h-full object-cover"
+              />
             </div>
             {/* Decorative frame offset */}
             <div className="absolute -bottom-3 -right-3 w-full h-full rounded-2xl border border-[#c9a96e]/20 -z-10" aria-hidden="true" />
@@ -45,7 +49,6 @@ const HeroSection: React.FC = () => {
           className="flex flex-col items-center"
         >
           <p className="font-sans text-xs text-[#c9a96e] tracking-[0.3em] uppercase mb-2">Дата свадьбы</p>
-          <h2 className="font-serif text-2xl text-[#3d2e1e] tracking-wide mb-6">Август 2026</h2>
 
           <div className="bg-white/70 border border-[#c9a96e]/20 rounded-2xl p-6 shadow-sm w-full max-w-xs">
             {/* Weekday headers */}
@@ -92,7 +95,7 @@ const HeroSection: React.FC = () => {
             className="mt-5 flex items-center gap-2"
           >
             <Heart className="w-5 h-5 text-[#c9a96e] fill-[#c9a96e]" />
-            <span className="font-sans text-sm text-[#8a7560] tracking-widest">26 августа 2026</span>
+            <span className="font-sans text-sm text-[#8a7560] tracking-widest">22 августа 2026</span>
             <Heart className="w-5 h-5 text-[#c9a96e] fill-[#c9a96e]" />
           </motion.div>
         </motion.div>

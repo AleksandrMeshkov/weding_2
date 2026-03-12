@@ -34,7 +34,7 @@ const InvitationSection: React.FC = () => {
           <div className="flex items-center justify-center gap-6 mb-8">
             <div className="h-px flex-1 bg-[#c9a96e]/30 max-w-[60px]" aria-hidden="true" />
             <p className="font-serif text-xl text-[#8a7560] tracking-[0.2em]">
-              26 <span className="text-[#c9a96e]/60 mx-2">|</span> августа <span className="text-[#c9a96e]/60 mx-2">|</span> 2026
+              22 <span className="text-[#c9a96e]/60 mx-2">|</span> августа <span className="text-[#c9a96e]/60 mx-2">|</span> 2026
             </p>
             <div className="h-px flex-1 bg-[#c9a96e]/30 max-w-[60px]" aria-hidden="true" />
           </div>

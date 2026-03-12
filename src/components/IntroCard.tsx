@@ -6,6 +6,8 @@ interface IntroCardProps {
   onEnter: () => void;
 }
 
+const couplePhoto = new URL('../../img/IMG_7458.jpg', import.meta.url).href;
+
 const IntroCard: React.FC<IntroCardProps> = ({ onEnter }) => {
   return (
     <div className="relative min-h-screen flex flex-col items-center justify-center bg-[#f9f5ef] overflow-hidden">
@@ -68,9 +70,11 @@ const IntroCard: React.FC<IntroCardProps> = ({ onEnter }) => {
           transition={{ delay: 1, duration: 1 }}
           className="w-48 h-48 md:w-56 md:h-56 rounded-full border-4 border-[#c9a96e]/30 overflow-hidden mb-8 shadow-lg bg-[#ede8df] flex items-center justify-center"
         >
-          <span className="text-[#c9a96e]/60 font-sans text-xs text-center px-4 leading-relaxed">
-            Фото жениха<br />и невесты
-          </span>
+          <img
+            src={couplePhoto}
+            alt="Андрей и Ульяна"
+            className="w-full h-full object-cover"
+          />
         </motion.div>
 
         {/* Names */}
@@ -78,7 +82,7 @@ const IntroCard: React.FC<IntroCardProps> = ({ onEnter }) => {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.1, duration: 0.8 }}
-          className="font-serif text-3xl md:text-4xl text-[#3d2e1e] font-bold tracking-wide mb-4"
+          className="font-serif text-4xl md:text-4xl text-[#3d2e1e] font-bold tracking-wide mb-4"
         >
           Андрей & Ульяна
         </motion.h2>
@@ -88,7 +92,7 @@ const IntroCard: React.FC<IntroCardProps> = ({ onEnter }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.3, duration: 0.8 }}
-          className="font-sans text-lg text-[#8a7560] tracking-[0.25em] mb-8"
+          className="font-sans text-2xl text-[#8a7560] tracking-[0.25em] mb-8"
         >
           22 · 08 · 26
         </motion.p>

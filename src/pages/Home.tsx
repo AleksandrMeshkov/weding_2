@@ -7,6 +7,7 @@ import ScheduleSection from '../components/ScheduleSection';
 import DressCodeSection from '../components/DressCodeSection';
 import CountdownSection from '../components/CountdownSection';
 import RsvpSection from '../components/RsvpSection';
+import WishesSection from '../components/WishesSection';
 import WeddingFooter from '../components/WeddingFooter';
 
 const Home: React.FC = () => {
@@ -49,6 +50,7 @@ const Home: React.FC = () => {
           <CountdownSection />
           <RsvpSection />
           <DressCodeSection />
+          <WishesSection />
         </main>
         <WeddingFooter />
       </motion.div>

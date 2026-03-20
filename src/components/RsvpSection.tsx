@@ -11,10 +11,7 @@ type FormErrors = {
 };
 
 const RSVP_EMAIL = import.meta.env.VITE_RSVP_EMAIL;
-const attendanceLabels: Record<Exclude<AttendanceOption, ''>, string> = {
-  yes: 'Да, с радостью приду',
-  no: 'К сожалению, не смогу присутствовать',
-};
+const FORM_SUBMIT_TARGET = 'formsubmit_hidden_iframe';
 
 const RsvpSection: React.FC = () => {
   const [fullName, setFullName] = useState('');
@@ -23,12 +20,11 @@ const RsvpSection: React.FC = () => {
   const [companionFullName, setCompanionFullName] = useState('');
   const [companionAttendance, setCompanionAttendance] = useState<AttendanceOption>('');
   const [errors, setErrors] = useState<FormErrors>({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitMessage, setSubmitMessage] = useState('');
   const [submitError, setSubmitError] = useState('');
+  const [submitMessage, setSubmitMessage] = useState('');
+  const [isAwaitingSubmitResponse, setIsAwaitingSubmitResponse] = useState(false);
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
 
     const nextErrors: FormErrors = {};
 
@@ -51,65 +47,39 @@ const RsvpSection: React.FC = () => {
     setErrors(nextErrors);
 
     if (Object.keys(nextErrors).length > 0) {
+      event.preventDefault();
+      setIsAwaitingSubmitResponse(false);
       setSubmitMessage('');
       return;
     }
 
     if (!RSVP_EMAIL) {
+      event.preventDefault();
+      setIsAwaitingSubmitResponse(false);
       setSubmitError('Не указан адрес для получения ответов. Добавьте VITE_RSVP_EMAIL в .env.local.');
       setSubmitMessage('');
       return;
     }
 
-    setIsSubmitting(true);
     setSubmitError('');
     setSubmitMessage('');
+    setIsAwaitingSubmitResponse(true);
+  };
 
-    try {
-      const buildPayload = () => {
-        const payload = new FormData();
-        payload.append('name', fullName.trim());
-        payload.append('attendance', attendanceLabels[attendance as Exclude<AttendanceOption, ''>]);
-        payload.append('companion_name', includeCompanion ? companionFullName.trim() : '');
-        payload.append(
-          'companion_attendance',
-          includeCompanion && companionAttendance
-            ? attendanceLabels[companionAttendance as Exclude<AttendanceOption, ''>]
-            : '',
-        );
-        payload.append('_subject', 'Новый ответ из анкеты гостя');
-        payload.append('_captcha', 'false');
-        return payload;
-      };
-
-      const ajaxResponse = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(RSVP_EMAIL)}`, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-        },
-        body: buildPayload(),
-      });
-
-      if (!ajaxResponse.ok) {
-        await fetch(`https://formsubmit.co/${encodeURIComponent(RSVP_EMAIL)}`, {
-          method: 'POST',
-          mode: 'no-cors',
-          body: buildPayload(),
-        });
-      }
-
-      setSubmitMessage('Спасибо. Ваш ответ отправлен.');
-      setFullName('');
-      setAttendance('');
-      setIncludeCompanion(false);
-      setCompanionFullName('');
-      setCompanionAttendance('');
-      setErrors({});
-    } catch {
-      setSubmitError('Не удалось отправить ответ. Попробуйте ещё раз чуть позже.');
-    } finally {
-      setIsSubmitting(false);
+  const handleSubmitFrameLoad = () => {
+    if (!isAwaitingSubmitResponse) {
+      return;
     }
+
+    setSubmitMessage('Спасибо. Ваш ответ отправлен.');
+    setSubmitError('');
+    setFullName('');
+    setAttendance('');
+    setIncludeCompanion(false);
+    setCompanionFullName('');
+    setCompanionAttendance('');
+    setErrors({});
+    setIsAwaitingSubmitResponse(false);
   };
 
   return (
@@ -139,20 +109,28 @@ const RsvpSection: React.FC = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.15 }}
           onSubmit={handleSubmit}
+          action={RSVP_EMAIL ? `https://formsubmit.co/${encodeURIComponent(RSVP_EMAIL)}` : undefined}
+          method="POST"
+          target={FORM_SUBMIT_TARGET}
           className="bg-white/60 border border-[#c9a96e]/20 rounded-[2rem] shadow-sm p-8 md:p-10 max-w-2xl mx-auto"
         >
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="_subject" value="Новый ответ из анкеты гостя" />
+
           <div className="mb-8">
             <label htmlFor="guest-full-name" className="block font-serif text-2xl md:text-3xl text-[#3d2e1e] mb-3">
               Ваше имя и фамилия
             </label>
             <input
               id="guest-full-name"
+              name="name"
               type="text"
               value={fullName}
               onChange={(event) => {
                 setFullName(event.target.value);
                 setErrors((current) => ({ ...current, fullName: undefined }));
                 setSubmitError('');
+                setSubmitMessage('');
               }}
               placeholder="ФИО"
               className="w-full rounded-2xl border border-[#c9a96e]/30 bg-[#f9f5ef] px-5 py-4 font-sans text-lg text-[#3d2e1e] placeholder:text-[#b7aa9b] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a96e]"
@@ -187,12 +165,13 @@ const RsvpSection: React.FC = () => {
                   <input
                     type="radio"
                     name="attendance"
-                    value={option.value}
+                    value={option.label}
                     checked={attendance === option.value}
-                    onChange={(event) => {
-                      setAttendance(event.target.value as AttendanceOption);
+                    onChange={() => {
+                      setAttendance(option.value as AttendanceOption);
                       setErrors((current) => ({ ...current, attendance: undefined }));
                       setSubmitError('');
+                      setSubmitMessage('');
                     }}
                     className="sr-only"
                   />
@@ -214,6 +193,7 @@ const RsvpSection: React.FC = () => {
                   const nextValue = event.target.checked;
                   setIncludeCompanion(nextValue);
                   setSubmitError('');
+                  setSubmitMessage('');
                   if (!nextValue) {
                     setCompanionFullName('');
                     setCompanionAttendance('');
@@ -241,12 +221,14 @@ const RsvpSection: React.FC = () => {
                 </label>
                 <input
                   id="companion-full-name"
+                  name="companion_name"
                   type="text"
                   value={companionFullName}
                   onChange={(event) => {
                     setCompanionFullName(event.target.value);
                     setErrors((current) => ({ ...current, companionFullName: undefined }));
                     setSubmitError('');
+                    setSubmitMessage('');
                   }}
                   placeholder="ФИО"
                   className="w-full rounded-2xl border border-[#c9a96e]/30 bg-white px-5 py-4 font-sans text-lg text-[#3d2e1e] placeholder:text-[#b7aa9b] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a96e]"
@@ -280,13 +262,14 @@ const RsvpSection: React.FC = () => {
                       </span>
                       <input
                         type="radio"
-                        name="companion-attendance"
-                        value={option.value}
+                        name="companion_attendance"
+                        value={option.label}
                         checked={companionAttendance === option.value}
-                        onChange={(event) => {
-                          setCompanionAttendance(event.target.value as AttendanceOption);
+                        onChange={() => {
+                          setCompanionAttendance(option.value as AttendanceOption);
                           setErrors((current) => ({ ...current, companionAttendance: undefined }));
                           setSubmitError('');
+                          setSubmitMessage('');
                         }}
                         className="sr-only"
                       />
@@ -301,13 +284,20 @@ const RsvpSection: React.FC = () => {
             </div>
           )}
 
+          {!includeCompanion && (
+            <>
+              <input type="hidden" name="companion_name" value="" />
+              <input type="hidden" name="companion_attendance" value="" />
+            </>
+          )}
+
           <div className="flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between">
             <button
               type="submit"
-              disabled={isSubmitting}
+              disabled={isAwaitingSubmitResponse}
               className="inline-flex min-w-48 items-center justify-center rounded-full bg-[#3d2e1e] px-8 py-4 font-sans text-base md:text-lg uppercase tracking-[0.25em] text-[#f9f5ef] transition-colors duration-200 hover:bg-[#533f29] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a96e]"
             >
-              {isSubmitting ? 'Отправка...' : 'Отправить'}
+              {isAwaitingSubmitResponse ? 'Отправка...' : 'Отправить'}
             </button>
 
             {submitMessage && (
@@ -321,6 +311,13 @@ const RsvpSection: React.FC = () => {
             <p className="mt-4 font-sans text-base text-[#a05a4a]">{submitError}</p>
           )}
         </motion.form>
+
+        <iframe
+          name={FORM_SUBMIT_TARGET}
+          title="hidden-formsubmit-target"
+          onLoad={handleSubmitFrameLoad}
+          className="hidden"
+        />
 
         <div className="flex items-center justify-center mt-12" aria-hidden="true">
           <div className="h-px w-28 bg-[#3d2e1e]/70" />

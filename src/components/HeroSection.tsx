@@ -17,8 +17,8 @@ const WEEKDAYS = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
 
 const HeroSection: React.FC = () => {
   return (
-    <section className="min-h-screen bg-[#f9f5ef] flex flex-col items-center justify-center py-24 px-6">
-      <div className="max-w-4xl w-full mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+    <section className="min-h-screen bg-[#f9f5ef] flex flex-col items-center justify-center py-12 sm:py-16 md:py-24 px-4 sm:px-6">
+      <div className="max-w-4xl w-full mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
         {/* Photo */}
         <motion.div
           initial={{ opacity: 0, x: -30 }}
@@ -28,7 +28,7 @@ const HeroSection: React.FC = () => {
           className="flex justify-center"
         >
           <div className="relative">
-            <div className="w-72 h-96 md:w-80 md:h-[420px] rounded-2xl overflow-hidden border border-[#c9a96e]/20 shadow-xl bg-[#ede8df] flex items-center justify-center">
+            <div className="w-60 h-80 sm:w-72 sm:h-96 md:w-80 md:h-[420px] rounded-2xl overflow-hidden border border-[#c9a96e]/20 shadow-xl bg-[#ede8df] flex items-center justify-center">
               <img
                 src={couplePhoto}
                 alt="Андрей и Ульяна"
@@ -48,11 +48,11 @@ const HeroSection: React.FC = () => {
           transition={{ duration: 0.9, delay: 0.2 }}
           className="flex flex-col items-center"
         >
-          <p className="font-sans text-xs text-[#c9a96e] tracking-[0.3em] uppercase mb-2">Дата свадьбы</p>
+          <p className="font-sans text-xs text-[#c9a96e] tracking-[0.3em] uppercase mb-3 sm:mb-4">Дата свадьбы</p>
 
-          <div className="bg-white/70 border border-[#c9a96e]/20 rounded-2xl p-6 shadow-sm w-full max-w-xs">
+          <div className="bg-white/70 border border-[#c9a96e]/20 rounded-2xl p-4 sm:p-6 shadow-sm w-full max-w-xs">
             {/* Weekday headers */}
-            <div className="grid grid-cols-7 mb-3">
+            <div className="grid grid-cols-7 mb-2 sm:mb-3">
               {WEEKDAYS.map((d) => (
                 <div key={d} className="text-center font-sans text-xs text-[#8a7560] tracking-wide py-1">
                   {d}
@@ -65,7 +65,7 @@ const HeroSection: React.FC = () => {
                 {week.map((day, di) => (
                   <div
                     key={di}
-                    className={`flex items-center justify-center h-9 w-9 mx-auto rounded-full font-sans text-sm transition-all duration-200 ${
+                    className={`flex items-center justify-center h-8 sm:h-9 w-8 sm:w-9 mx-auto rounded-full font-sans text-xs sm:text-sm transition-all duration-200 ${
                       day === 22
                         ? 'bg-[#c9a96e] text-white font-bold shadow-md'
                         : day
@@ -92,11 +92,11 @@ const HeroSection: React.FC = () => {
             whileInView={{ scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.6, type: 'spring', stiffness: 200 }}
-            className="mt-5 flex items-center gap-2"
+            className="mt-4 sm:mt-5 flex items-center gap-2"
           >
-            <Heart className="w-5 h-5 text-[#c9a96e] fill-[#c9a96e]" />
-            <span className="font-sans text-sm text-[#8a7560] tracking-widest">22 августа 2026</span>
-            <Heart className="w-5 h-5 text-[#c9a96e] fill-[#c9a96e]" />
+            <Heart className="w-4 h-4 sm:w-5 sm:h-5 text-[#c9a96e] fill-[#c9a96e]" />
+            <span className="font-sans text-xs sm:text-sm text-[#8a7560] tracking-widest">22 августа 2026</span>
+            <Heart className="w-4 h-4 sm:w-5 sm:h-5 text-[#c9a96e] fill-[#c9a96e]" />
           </motion.div>
         </motion.div>
       </div>

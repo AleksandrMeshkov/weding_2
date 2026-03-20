@@ -36,7 +36,7 @@ const ScheduleSection: React.FC = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-14"
         >
-          <h2 className="font-serif text-3xl md:text-4xl text-[#3d2e1e] tracking-wide">
+          <h2 className="font-serif text-4xl md:text-5xl text-[#3d2e1e] tracking-wide">
             План дня
           </h2>
           <div className="w-16 h-px bg-[#c9a96e]/50 mx-auto mt-4" aria-hidden="true" />
@@ -58,7 +58,7 @@ const ScheduleSection: React.FC = () => {
               >
                 {/* Time */}
                 <div className="flex items-center gap-3 md:flex-col md:items-end md:w-[72px] md:pt-1 shrink-0">
-                  <span className="font-serif text-2xl md:text-3xl text-[#c9a96e] font-bold leading-none">
+                  <span className="font-serif text-3xl md:text-4xl text-[#c9a96e] font-bold leading-none">
                     {item.time}
                   </span>
                 </div>
@@ -72,9 +72,9 @@ const ScheduleSection: React.FC = () => {
                 <div className="flex-1 bg-white/60 border border-[#c9a96e]/15 rounded-xl p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
                   <div className="flex items-center gap-2 mb-1">
                     <Clock className="w-4 h-4 text-[#c9a96e]" />
-                    <h3 className="font-serif text-lg text-[#3d2e1e] font-semibold">{item.title}</h3>
+                    <h3 className="font-serif text-xl md:text-2xl text-[#3d2e1e] font-semibold">{item.title}</h3>
                   </div>
-                  <p className="font-sans text-sm text-[#8a7560] leading-relaxed">{item.description}</p>
+                  <p className="font-sans text-base md:text-lg text-[#8a7560] leading-relaxed">{item.description}</p>
                 </div>
               </motion.div>
             ))}

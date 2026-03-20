@@ -48,13 +48,13 @@ const HeroSection: React.FC = () => {
           transition={{ duration: 0.9, delay: 0.2 }}
           className="flex flex-col items-center"
         >
-          <p className="font-sans text-xs text-[#c9a96e] tracking-[0.3em] uppercase mb-3 sm:mb-4">Дата свадьбы</p>
+          <p className="font-sans font-semibold text-sm md:text-base text-[#a8854e] tracking-[0.3em] uppercase mb-3 sm:mb-4">Дата свадьбы</p>
 
           <div className="bg-white/70 border border-[#c9a96e]/20 rounded-2xl p-4 sm:p-6 shadow-sm w-full max-w-xs">
             {/* Weekday headers */}
             <div className="grid grid-cols-7 mb-2 sm:mb-3">
               {WEEKDAYS.map((d) => (
-                <div key={d} className="text-center font-sans text-xs text-[#8a7560] tracking-wide py-1">
+                <div key={d} className="text-center font-sans text-sm text-[#8a7560] tracking-wide py-1">
                   {d}
                 </div>
               ))}
@@ -65,7 +65,7 @@ const HeroSection: React.FC = () => {
                 {week.map((day, di) => (
                   <div
                     key={di}
-                    className={`flex items-center justify-center h-8 sm:h-9 w-8 sm:w-9 mx-auto rounded-full font-sans text-xs sm:text-sm transition-all duration-200 ${
+                    className={`flex items-center justify-center h-8 sm:h-9 w-8 sm:w-9 mx-auto rounded-full font-sans text-sm sm:text-base transition-all duration-200 ${
                       day === 22
                         ? 'bg-[#c9a96e] text-white font-bold shadow-md'
                         : day
@@ -95,7 +95,7 @@ const HeroSection: React.FC = () => {
             className="mt-4 sm:mt-5 flex items-center gap-2"
           >
             <Heart className="w-4 h-4 sm:w-5 sm:h-5 text-[#c9a96e] fill-[#c9a96e]" />
-            <span className="font-sans text-xs sm:text-sm text-[#8a7560] tracking-widest">22 августа 2026</span>
+            <span className="font-sans text-sm sm:text-base text-[#8a7560] tracking-widest">22 августа 2026</span>
             <Heart className="w-4 h-4 sm:w-5 sm:h-5 text-[#c9a96e] fill-[#c9a96e]" />
           </motion.div>
         </motion.div>

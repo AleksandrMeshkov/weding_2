@@ -29,10 +29,10 @@ const DressCodeSection: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <p className="font-sans text-xs text-[#c9a96e] tracking-[0.4em] uppercase mb-2">ДРЕСС-КОД</p>
-            <h2 className="font-serif text-2xl text-[#3d2e1e] mb-4">Цветовая палитра</h2>
+            <p className="font-sans font-semibold text-sm md:text-base text-[#a8854e] tracking-[0.4em] uppercase mb-2">ДРЕСС-КОД</p>
+            <h2 className="font-serif text-3xl md:text-4xl text-[#3d2e1e] mb-4">Цветовая палитра</h2>
             <div className="w-10 h-px bg-[#c9a96e]/50 mb-5" aria-hidden="true" />
-            <p className="font-sans text-sm text-[#6b5744] leading-relaxed mb-6">
+            <p className="font-sans text-base md:text-lg text-[#6b5744] leading-relaxed mb-6">
               Мы будем очень благодарны, если вы поддержите цветовую палитру нашей свадьбы:
             </p>
 
@@ -60,10 +60,10 @@ const DressCodeSection: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <p className="font-sans text-xs text-[#c9a96e] tracking-[0.4em] uppercase mb-2">КОНТАКТЫ</p>
-            <h2 className="font-serif text-2xl text-[#3d2e1e] mb-4">Координатор</h2>
+            <p className="font-sans font-semibold text-sm md:text-base text-[#a8854e] tracking-[0.4em] uppercase mb-2">КОНТАКТЫ</p>
+            <h2 className="font-serif text-3xl md:text-4xl text-[#3d2e1e] mb-4">Координатор</h2>
             <div className="w-10 h-px bg-[#c9a96e]/50 mb-5" aria-hidden="true" />
-            <p className="font-sans text-sm text-[#6b5744] leading-relaxed mb-6">
+            <p className="font-sans text-base md:text-lg text-[#6b5744] leading-relaxed mb-6">
               По всем вопросам, связанным с торжественным вечером, просим обращаться к нашему координатору:
             </p>
 
@@ -73,10 +73,10 @@ const DressCodeSection: React.FC = () => {
                   <Phone className="w-4 h-4 text-[#c9a96e]" />
                 </div>
                 <div>
-                  <p className="font-serif text-lg text-[#3d2e1e] font-semibold">Александра</p>
+                  <p className="font-serif text-xl md:text-2xl text-[#3d2e1e] font-semibold">Александра</p>
                   <a
                     href="tel:+79993009995"
-                    className="font-sans text-sm text-[#c9a96e] tracking-wide hover:text-[#a8854e] transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a96e] rounded"
+                    className="font-sans text-base md:text-lg text-[#c9a96e] tracking-wide hover:text-[#a8854e] transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a96e] rounded"
                   >
                     +7-999-300-99-95
                   </a>
@@ -85,8 +85,8 @@ const DressCodeSection: React.FC = () => {
             </div>
 
             <div className="mt-4 bg-white/60 border border-[#c9a96e]/20 rounded-xl p-5 shadow-sm">
-              <p className="font-serif text-lg text-[#3d2e1e] font-semibold mb-3">Чаты</p>
-              <p className="font-sans text-sm text-[#6b5744] leading-relaxed mb-4">
+              <p className="font-serif text-xl md:text-2xl text-[#3d2e1e] font-semibold mb-3">Чаты</p>
+              <p className="font-sans text-base md:text-lg text-[#6b5744] leading-relaxed mb-4">
                 Пожалуйста, вступайте в чаты, чтобы быть в курсе всех организационных моментов.
               </p>
               <div className="space-y-3">
@@ -98,7 +98,7 @@ const DressCodeSection: React.FC = () => {
                     href="https://t.me/+aYStBkH1uFxjNWU6"
                     target="_blank"
                     rel="noreferrer"
-                    className="font-sans text-sm text-[#c9a96e] tracking-wide hover:text-[#a8854e] transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a96e] rounded"
+                    className="font-sans text-base md:text-lg text-[#c9a96e] tracking-wide hover:text-[#a8854e] transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a96e] rounded"
                   >
                     Чат в Telegram
                   </a>
@@ -112,7 +112,7 @@ const DressCodeSection: React.FC = () => {
                     href="https://max.ru/join/Rw_CfabMY5hls8zn20ZBs9G22_OdAFcmhYjBCfTiZF4"
                     target="_blank"
                     rel="noreferrer"
-                    className="font-sans text-sm text-[#c9a96e] tracking-wide hover:text-[#a8854e] transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a96e] rounded"
+                    className="font-sans text-base md:text-lg text-[#c9a96e] tracking-wide hover:text-[#a8854e] transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a96e] rounded"
                   >
                     Чат в MAX
                   </a>

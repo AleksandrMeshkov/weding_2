@@ -66,27 +66,36 @@ const RsvpSection: React.FC = () => {
     setSubmitMessage('');
 
     try {
-      const response = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(RSVP_EMAIL)}`, {
+      const buildPayload = () => {
+        const payload = new FormData();
+        payload.append('name', fullName.trim());
+        payload.append('attendance', attendanceLabels[attendance as Exclude<AttendanceOption, ''>]);
+        payload.append('companion_name', includeCompanion ? companionFullName.trim() : '');
+        payload.append(
+          'companion_attendance',
+          includeCompanion && companionAttendance
+            ? attendanceLabels[companionAttendance as Exclude<AttendanceOption, ''>]
+            : '',
+        );
+        payload.append('_subject', 'Новый ответ из анкеты гостя');
+        payload.append('_captcha', 'false');
+        return payload;
+      };
+
+      const ajaxResponse = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(RSVP_EMAIL)}`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
           Accept: 'application/json',
         },
-        body: JSON.stringify({
-          name: fullName.trim(),
-          attendance: attendanceLabels[attendance as Exclude<AttendanceOption, ''>],
-          companion_name: includeCompanion ? companionFullName.trim() : '',
-          companion_attendance:
-            includeCompanion && companionAttendance
-              ? attendanceLabels[companionAttendance as Exclude<AttendanceOption, ''>]
-              : '',
-          _subject: 'Новый ответ из анкеты гостя',
-          _captcha: 'false',
-        }),
+        body: buildPayload(),
       });
 
-      if (!response.ok) {
-        throw new Error('request_failed');
+      if (!ajaxResponse.ok) {
+        await fetch(`https://formsubmit.co/${encodeURIComponent(RSVP_EMAIL)}`, {
+          method: 'POST',
+          mode: 'no-cors',
+          body: buildPayload(),
+        });
       }
 
       setSubmitMessage('Спасибо. Ваш ответ отправлен.');
@@ -113,13 +122,13 @@ const RsvpSection: React.FC = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-12"
         >
-          <p className="font-sans text-xs text-[#c9a96e] tracking-[0.4em] uppercase mb-4">
+          <p className="font-sans font-semibold text-sm md:text-base text-[#a8854e] tracking-[0.4em] uppercase mb-4">
             Анкета гостя
           </p>
-          <h2 className="font-serif text-3xl md:text-4xl text-[#3d2e1e] mb-5 uppercase tracking-wide">
+          <h2 className="font-serif text-4xl md:text-5xl text-[#3d2e1e] mb-5 uppercase tracking-wide">
             Подтверждение присутствия
           </h2>
-          <p className="font-sans text-sm md:text-base text-[#6b5744] leading-relaxed max-w-xl mx-auto">
+          <p className="font-sans text-base md:text-lg text-[#6b5744] leading-relaxed max-w-xl mx-auto">
             Пожалуйста, подтвердите своё присутствие, чтобы мы могли с заботой подготовить этот день для каждого гостя.
           </p>
         </motion.div>
@@ -133,7 +142,7 @@ const RsvpSection: React.FC = () => {
           className="bg-white/60 border border-[#c9a96e]/20 rounded-[2rem] shadow-sm p-8 md:p-10 max-w-2xl mx-auto"
         >
           <div className="mb-8">
-            <label htmlFor="guest-full-name" className="block font-serif text-xl text-[#3d2e1e] mb-3">
+            <label htmlFor="guest-full-name" className="block font-serif text-2xl md:text-3xl text-[#3d2e1e] mb-3">
               Ваше имя и фамилия
             </label>
             <input
@@ -146,15 +155,15 @@ const RsvpSection: React.FC = () => {
                 setSubmitError('');
               }}
               placeholder="ФИО"
-              className="w-full rounded-2xl border border-[#c9a96e]/30 bg-[#f9f5ef] px-5 py-4 font-sans text-base text-[#3d2e1e] placeholder:text-[#b7aa9b] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a96e]"
+              className="w-full rounded-2xl border border-[#c9a96e]/30 bg-[#f9f5ef] px-5 py-4 font-sans text-lg text-[#3d2e1e] placeholder:text-[#b7aa9b] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a96e]"
             />
             {errors.fullName && (
-              <p className="mt-2 font-sans text-sm text-[#a05a4a]">{errors.fullName}</p>
+              <p className="mt-2 font-sans text-base text-[#a05a4a]">{errors.fullName}</p>
             )}
           </div>
 
           <div className="mb-10">
-            <p className="font-serif text-xl text-[#3d2e1e] mb-4">Вы сможете присутствовать?</p>
+            <p className="font-serif text-2xl md:text-3xl text-[#3d2e1e] mb-4">Вы сможете присутствовать?</p>
             <div className="space-y-4">
               {[
                 { value: 'yes', label: 'Да, с радостью приду' },
@@ -187,12 +196,12 @@ const RsvpSection: React.FC = () => {
                     }}
                     className="sr-only"
                   />
-                  <span className="font-sans text-base text-[#6b5744]">{option.label}</span>
+                  <span className="font-sans text-lg text-[#6b5744]">{option.label}</span>
                 </label>
               ))}
             </div>
             {errors.attendance && (
-              <p className="mt-3 font-sans text-sm text-[#a05a4a]">{errors.attendance}</p>
+              <p className="mt-3 font-sans text-base text-[#a05a4a]">{errors.attendance}</p>
             )}
           </div>
 
@@ -217,7 +226,7 @@ const RsvpSection: React.FC = () => {
                 }}
                 className="h-5 w-5 rounded border-[#c9a96e]/40 text-[#3d2e1e] focus:ring-[#c9a96e]"
               />
-              <span className="font-sans text-base text-[#6b5744]">
+              <span className="font-sans text-lg text-[#6b5744]">
                 Добавить спутника
               </span>
             </label>
@@ -227,7 +236,7 @@ const RsvpSection: React.FC = () => {
             <div className="mb-10 rounded-3xl border border-[#c9a96e]/20 bg-[#f9f5ef]/60 p-6">
 
               <div className="mb-8">
-                <label htmlFor="companion-full-name" className="block font-serif text-xl text-[#3d2e1e] mb-3">
+                <label htmlFor="companion-full-name" className="block font-serif text-2xl md:text-3xl text-[#3d2e1e] mb-3">
                   Имя и фамилия дополнительного гостя
                 </label>
                 <input
@@ -240,15 +249,15 @@ const RsvpSection: React.FC = () => {
                     setSubmitError('');
                   }}
                   placeholder="ФИО"
-                  className="w-full rounded-2xl border border-[#c9a96e]/30 bg-white px-5 py-4 font-sans text-base text-[#3d2e1e] placeholder:text-[#b7aa9b] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a96e]"
+                  className="w-full rounded-2xl border border-[#c9a96e]/30 bg-white px-5 py-4 font-sans text-lg text-[#3d2e1e] placeholder:text-[#b7aa9b] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a96e]"
                 />
                 {errors.companionFullName && (
-                  <p className="mt-2 font-sans text-sm text-[#a05a4a]">{errors.companionFullName}</p>
+                  <p className="mt-2 font-sans text-base text-[#a05a4a]">{errors.companionFullName}</p>
                 )}
               </div>
 
               <div>
-                <p className="font-serif text-xl text-[#3d2e1e] mb-4">Сможет присутствовать дополнительный гость?</p>
+                <p className="font-serif text-2xl md:text-3xl text-[#3d2e1e] mb-4">Сможет присутствовать дополнительный гость?</p>
                 <div className="space-y-4">
                   {[
                     { value: 'yes', label: 'Да, сможет присутствовать' },
@@ -281,12 +290,12 @@ const RsvpSection: React.FC = () => {
                         }}
                         className="sr-only"
                       />
-                      <span className="font-sans text-base text-[#6b5744]">{option.label}</span>
+                      <span className="font-sans text-lg text-[#6b5744]">{option.label}</span>
                     </label>
                   ))}
                 </div>
                 {errors.companionAttendance && (
-                  <p className="mt-3 font-sans text-sm text-[#a05a4a]">{errors.companionAttendance}</p>
+                  <p className="mt-3 font-sans text-base text-[#a05a4a]">{errors.companionAttendance}</p>
                 )}
               </div>
             </div>
@@ -296,20 +305,20 @@ const RsvpSection: React.FC = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="inline-flex min-w-48 items-center justify-center rounded-full bg-[#3d2e1e] px-8 py-4 font-sans text-sm uppercase tracking-[0.25em] text-[#f9f5ef] transition-colors duration-200 hover:bg-[#533f29] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a96e]"
+              className="inline-flex min-w-48 items-center justify-center rounded-full bg-[#3d2e1e] px-8 py-4 font-sans text-base md:text-lg uppercase tracking-[0.25em] text-[#f9f5ef] transition-colors duration-200 hover:bg-[#533f29] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a96e]"
             >
               {isSubmitting ? 'Отправка...' : 'Отправить'}
             </button>
 
             {submitMessage && (
-              <p className="font-sans text-sm text-[#8a7560] leading-relaxed md:max-w-xs">
+              <p className="font-sans text-base text-[#8a7560] leading-relaxed md:max-w-xs">
                 {submitMessage}
               </p>
             )}
           </div>
 
           {submitError && (
-            <p className="mt-4 font-sans text-sm text-[#a05a4a]">{submitError}</p>
+            <p className="mt-4 font-sans text-base text-[#a05a4a]">{submitError}</p>
           )}
         </motion.form>
 

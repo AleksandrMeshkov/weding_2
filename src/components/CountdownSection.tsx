@@ -46,13 +46,13 @@ const CountdownSection: React.FC = () => {
           transition={{ duration: 0.8 }}
           className="mb-12"
         >
-          <h2 className="font-serif text-2xl md:text-3xl text-[#3d2e1e] mb-5 leading-relaxed">
+          <h2 className="font-serif text-3xl md:text-4xl text-[#3d2e1e] mb-5 leading-relaxed">
             Дорогие родные и друзья!
           </h2>
-          <p className="font-sans text-sm text-[#6b5744] leading-relaxed max-w-md mx-auto mb-3">
+          <p className="font-sans text-base md:text-lg text-[#6b5744] leading-relaxed max-w-md mx-auto mb-3">
             Мы счастливы пригласить вас на самый важный день нашей жизни. Ваше присутствие наполнит этот день особым теплом и радостью.
           </p>
-          <p className="font-sans text-sm text-[#6b5744] leading-relaxed max-w-md mx-auto">
+          <p className="font-sans text-base md:text-lg text-[#6b5744] leading-relaxed max-w-md mx-auto">
             Мы с нетерпением ждём встречи с каждым из вас и надеемся, что этот вечер станет незабываемым для всех нас.
           </p>
         </motion.div>
@@ -72,7 +72,7 @@ const CountdownSection: React.FC = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="mb-12"
         >
-          <p className="font-sans text-xs text-[#8a7560] tracking-[0.3em] uppercase mb-6">
+          <p className="font-sans text-sm md:text-base text-[#8a7560] tracking-[0.3em] uppercase mb-6">
             до свадьбы осталось...
           </p>
           <div className="grid grid-cols-4 gap-4 max-w-sm mx-auto">
@@ -91,11 +91,11 @@ const CountdownSection: React.FC = () => {
                 className="flex flex-col items-center"
               >
                 <div className="w-full aspect-square bg-white/70 border border-[#c9a96e]/20 rounded-xl flex items-center justify-center shadow-sm mb-2">
-                  <span className="font-serif text-2xl md:text-3xl text-[#3d2e1e] font-bold tabular-nums">
+                  <span className="font-serif text-3xl md:text-4xl text-[#3d2e1e] font-bold tabular-nums">
                     {pad(item.value)}
                   </span>
                 </div>
-                <span className="font-sans text-xs text-[#8a7560] tracking-wide">{item.label}</span>
+                <span className="font-sans text-sm text-[#8a7560] tracking-wide">{item.label}</span>
               </motion.div>
             ))}
           </div>
@@ -115,7 +115,7 @@ const CountdownSection: React.FC = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          <p className="font-sans text-xs text-[#c9a96e] tracking-[0.4em] uppercase mb-4">
+          <p className="font-sans font-semibold text-sm md:text-base text-[#a8854e] tracking-[0.4em] uppercase mb-4">
             Место проведения
           </p>
           <div className="bg-white/60 border border-[#c9a96e]/20 rounded-2xl p-6 shadow-sm inline-block">
@@ -124,20 +124,20 @@ const CountdownSection: React.FC = () => {
                 <MapPin className="w-4 h-4 text-[#c9a96e]" />
               </div>
               <div className="text-left">
-                <p className="font-serif text-lg text-[#3d2e1e] font-semibold mb-1">PARUS</p>
-                <p className="font-sans text-sm text-[#8a7560] mb-1">Банкетный зал «White Hall»</p>
+                <p className="font-serif text-xl md:text-2xl text-[#3d2e1e] font-semibold mb-1">PARUS</p>
+                <p className="font-sans text-base text-[#8a7560] mb-1">Банкетный зал «White Hall»</p>
                 <a
                   href={VENUE_MAP_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-sans text-sm text-[#6b5744] underline decoration-[#c9a96e]/50 underline-offset-4 hover:text-[#3d2e1e] transition-colors"
+                  className="font-sans text-base text-[#6b5744] underline decoration-[#c9a96e]/50 underline-offset-4 hover:text-[#3d2e1e] transition-colors"
                 >
                   Береговая улица, 56
                 </a>
               </div>
             </div>
           </div>
-          <p className="font-sans text-xs text-[#8a7560] mt-3">
+          <p className="font-sans text-sm md:text-base text-[#8a7560] mt-3">
             Нажмите на адрес, чтобы открыть маршрут на карте.
           </p>
         </motion.div>

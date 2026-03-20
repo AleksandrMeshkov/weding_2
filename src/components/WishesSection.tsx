@@ -29,7 +29,7 @@ const WishesSection: React.FC = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-14"
         >
-          <p className="font-sans text-xs text-[#c9a96e] tracking-[0.4em] uppercase mb-4">
+          <p className="font-sans font-semibold text-sm md:text-base text-[#a8854e] tracking-[0.4em] uppercase mb-4">
             Пожелания
           </p>
           <div className="flex items-center gap-4 justify-center mt-6" aria-hidden="true">
@@ -57,14 +57,14 @@ const WishesSection: React.FC = () => {
                     <Icon className="w-5 h-5 text-[#c9a96e]" />
                   </div>
                   <div>
-                    <p className="font-sans text-xs text-[#c9a96e] tracking-[0.3em] uppercase mb-0.5">
+                    <p className="font-sans font-semibold text-sm text-[#a8854e] tracking-[0.3em] uppercase mb-0.5">
                       {wish.tag}
                     </p>
-                    <h3 className="font-serif text-xl text-[#3d2e1e]">{wish.title}</h3>
+                    <h3 className="font-serif text-2xl md:text-3xl text-[#3d2e1e]">{wish.title}</h3>
                   </div>
                 </div>
                 <div className="w-8 h-px bg-[#c9a96e]/40" aria-hidden="true" />
-                <p className="font-sans text-sm text-[#6b5744] leading-relaxed">{wish.text}</p>
+                <p className="font-sans text-base md:text-lg text-[#6b5744] leading-relaxed">{wish.text}</p>
               </motion.div>
             );
           })}

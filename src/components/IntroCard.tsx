@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Heart } from 'lucide-react';
 
@@ -9,8 +9,46 @@ interface IntroCardProps {
 const couplePhoto = new URL('../../img/IMG_7458.jpg', import.meta.url).href;
 
 const IntroCard: React.FC<IntroCardProps> = ({ onEnter }) => {
+  useEffect(() => {
+    const html = document.documentElement;
+    const body = document.body;
+    const viewportMeta = document.querySelector('meta[name="viewport"]');
+
+    const prevHtmlOverflow = html.style.overflow;
+    const prevHtmlOverscroll = html.style.overscrollBehavior;
+    const prevBodyOverflow = body.style.overflow;
+    const prevBodyOverscroll = body.style.overscrollBehavior;
+    const prevBodyTouchAction = body.style.touchAction;
+    const prevBodyBg = body.style.backgroundColor;
+    const prevViewport = viewportMeta?.getAttribute('content') ?? null;
+
+    html.style.overflow = 'hidden';
+    html.style.overscrollBehavior = 'none';
+    body.style.overflow = 'hidden';
+    body.style.overscrollBehavior = 'none';
+    body.style.touchAction = 'none';
+    body.style.backgroundColor = '#f9f5ef';
+
+    if (viewportMeta) {
+      viewportMeta.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+    }
+
+    return () => {
+      html.style.overflow = prevHtmlOverflow;
+      html.style.overscrollBehavior = prevHtmlOverscroll;
+      body.style.overflow = prevBodyOverflow;
+      body.style.overscrollBehavior = prevBodyOverscroll;
+      body.style.touchAction = prevBodyTouchAction;
+      body.style.backgroundColor = prevBodyBg;
+
+      if (viewportMeta && prevViewport) {
+        viewportMeta.setAttribute('content', prevViewport);
+      }
+    };
+  }, []);
+
   return (
-    <div className="relative min-h-screen flex flex-col items-center justify-center bg-[#f9f5ef] overflow-hidden">
+    <div className="fixed inset-0 h-[100dvh] w-full flex flex-col items-center justify-center bg-[#f9f5ef] overflow-hidden">
       {/* Background texture overlay */}
       <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1519741497674-611481863552?w=1600&q=80')] bg-cover bg-center opacity-10" aria-hidden="true" />
 
@@ -31,7 +69,7 @@ const IntroCard: React.FC<IntroCardProps> = ({ onEnter }) => {
           initial={{ opacity: 0, letterSpacing: '0.3em' }}
           animate={{ opacity: 1, letterSpacing: '0.4em' }}
           transition={{ delay: 0.3, duration: 1 }}
-          className="text-[#c9a96e] text-xs font-sans uppercase tracking-[0.4em] mb-4 sm:mb-6"
+          className="text-[#a8854e] text-sm md:text-base font-sans font-semibold uppercase tracking-[0.4em] mb-4 sm:mb-6"
         >
           You are invited
         </motion.p>
@@ -49,7 +87,7 @@ const IntroCard: React.FC<IntroCardProps> = ({ onEnter }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.7, duration: 1 }}
-          className="font-serif text-xl sm:text-2xl md:text-3xl text-[#c9a96e] tracking-[0.3em] uppercase mb-5 sm:mb-8"
+          className="font-serif text-xl sm:text-2xl md:text-3xl text-[#a8854e] tracking-[0.3em] uppercase mb-5 sm:mb-8"
         >
           Day
         </motion.p>
@@ -102,7 +140,7 @@ const IntroCard: React.FC<IntroCardProps> = ({ onEnter }) => {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.5, duration: 0.8 }}
-          className="font-sans text-xs sm:text-sm md:text-base text-[#6b5744] leading-relaxed mb-8 sm:mb-10 max-w-sm"
+          className="font-sans text-sm sm:text-base md:text-lg text-[#6b5744] leading-relaxed mb-8 sm:mb-10 max-w-sm"
         >
           Получение этого приглашения — не случайность. Вы являетесь неотъемлемой частью нашей жизни, и мы очень хотим, чтобы вы разделили с нами этот особенный день!
         </motion.p>
@@ -121,7 +159,7 @@ const IntroCard: React.FC<IntroCardProps> = ({ onEnter }) => {
           <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-[#c9a96e]/10 border border-[#c9a96e]/40 flex items-center justify-center transition-all duration-300 group-hover:bg-[#c9a96e]/20 group-hover:border-[#c9a96e]/70 group-hover:shadow-lg">
             <Heart className="w-5 h-5 sm:w-7 sm:h-7 text-[#c9a96e] fill-[#c9a96e]" />
           </div>
-          <span className="font-sans text-xs text-[#8a7560] tracking-widest uppercase">Открыть</span>
+          <span className="font-sans text-sm text-[#8a7560] tracking-widest uppercase">Открыть</span>
         </motion.button>
       </motion.div>
     </div>

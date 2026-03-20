@@ -40,7 +40,7 @@ const InvitationSection: React.FC = () => {
             <div className="flex-1 h-px bg-[#c9a96e]/30 max-w-[80px]" />
           </div>
 
-          <p className="font-sans text-xs text-[#c9a96e] tracking-[0.4em] uppercase mb-4">
+          <p className="font-sans font-semibold text-sm md:text-base text-[#a8854e] tracking-[0.4em] uppercase mb-4">
             Приглашение на свадьбу
           </p>
 
@@ -50,7 +50,7 @@ const InvitationSection: React.FC = () => {
             Ульяна
           </h2>
 
-          <p className="font-sans text-sm text-[#6b5744] leading-relaxed mb-10 max-w-md mx-auto">
+          <p className="font-sans text-base md:text-lg text-[#6b5744] leading-relaxed mb-10 max-w-md mx-auto">
             Мы с радостью приглашаем вас разделить с нами этот незабываемый день, наполненный любовью, теплом и счастьем.
           </p>
 
@@ -59,7 +59,7 @@ const InvitationSection: React.FC = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => setMusicOn(!musicOn)}
-            className="inline-flex items-center gap-3 px-6 py-3 rounded-full border border-[#c9a96e]/40 bg-white/60 text-[#8a7560] font-sans text-sm tracking-widest uppercase transition-all duration-300 hover:bg-[#c9a96e]/10 hover:border-[#c9a96e]/70 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a96e]"
+            className="inline-flex items-center gap-3 px-6 py-3 rounded-full border border-[#c9a96e]/40 bg-white/60 text-[#8a7560] font-sans text-base md:text-lg tracking-widest uppercase transition-all duration-300 hover:bg-[#c9a96e]/10 hover:border-[#c9a96e]/70 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a96e]"
             aria-pressed={musicOn}
             aria-label={musicOn ? 'Выключить музыку' : 'Включить музыку'}
           >

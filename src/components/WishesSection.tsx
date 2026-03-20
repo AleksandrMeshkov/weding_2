@@ -5,13 +5,13 @@ import { Baby, Heart } from 'lucide-react';
 const wishes = [
   {
     icon: Baby,
-    tag: '#ДЕТИ',
+    tag: 'ДЕТИ',
     title: 'Праздник для взрослых',
     text: 'Наша свадьба — праздник для взрослых. Пожалуйста, позаботьтесь о том, чтобы оставить детишек дома под любящим присмотром, и всецело насладитесь атмосферой нашего торжества.',
   },
   {
     icon: Heart,
-    tag: '#ГОРЬКО',
+    tag: 'ГОРЬКО',
     title: 'Горько',
     text: 'Никакой официальности и суеты. Только близкие люди, без которых мы не представляем этот день, непринуждённая атмосфера и много веселья. Однако, пожалуйста, воздержитесь от криков «Горько».',
   },
@@ -32,9 +32,6 @@ const WishesSection: React.FC = () => {
           <p className="font-sans text-xs text-[#c9a96e] tracking-[0.4em] uppercase mb-4">
             Пожелания
           </p>
-          <h2 className="font-serif text-3xl md:text-4xl text-[#3d2e1e] uppercase tracking-wide">
-            Наши просьбы
-          </h2>
           <div className="flex items-center gap-4 justify-center mt-6" aria-hidden="true">
             <div className="flex-1 h-px bg-[#c9a96e]/30 max-w-[80px]" />
             <div className="w-2 h-2 rounded-full bg-[#c9a96e]/50" />

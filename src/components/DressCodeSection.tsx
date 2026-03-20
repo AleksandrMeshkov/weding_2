@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Phone } from 'lucide-react';
+import { MessageCircle, Phone } from 'lucide-react';
 import dresOne from '../../img/dres_one.png';
 import dresTwo from '../../img/dres_two.png';
 import dresThree from '../../img/dres_three.png';
@@ -27,7 +27,7 @@ const DressCodeSection: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <p className="font-sans text-xs text-[#c9a96e] tracking-[0.4em] uppercase mb-2">#ДРЕСС-КОД</p>
+            <p className="font-sans text-xs text-[#c9a96e] tracking-[0.4em] uppercase mb-2">ДРЕСС-КОД</p>
             <h2 className="font-serif text-2xl text-[#3d2e1e] mb-4">Цветовая палитра</h2>
             <div className="w-10 h-px bg-[#c9a96e]/50 mb-5" aria-hidden="true" />
             <p className="font-sans text-sm text-[#6b5744] leading-relaxed mb-6">
@@ -58,11 +58,11 @@ const DressCodeSection: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <p className="font-sans text-xs text-[#c9a96e] tracking-[0.4em] uppercase mb-2">#КОНТАКТЫ</p>
-            <h2 className="font-serif text-2xl text-[#3d2e1e] mb-4">Организатор</h2>
+            <p className="font-sans text-xs text-[#c9a96e] tracking-[0.4em] uppercase mb-2">КОНТАКТЫ</p>
+            <h2 className="font-serif text-2xl text-[#3d2e1e] mb-4">Координатор</h2>
             <div className="w-10 h-px bg-[#c9a96e]/50 mb-5" aria-hidden="true" />
             <p className="font-sans text-sm text-[#6b5744] leading-relaxed mb-6">
-              По всем вопросам, связанным с торжественным вечером и сюрпризами, просим обращаться к нашему организатору:
+              По всем вопросам, связанным с торжественным вечером, просим обращаться к нашему координатору:
             </p>
 
             <div className="bg-white/60 border border-[#c9a96e]/20 rounded-xl p-5 shadow-sm">
@@ -77,6 +77,42 @@ const DressCodeSection: React.FC = () => {
                     className="font-sans text-sm text-[#c9a96e] tracking-wide hover:text-[#a8854e] transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a96e] rounded"
                   >
                     +7-999-300-99-95
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-4 bg-white/60 border border-[#c9a96e]/20 rounded-xl p-5 shadow-sm">
+              <p className="font-serif text-lg text-[#3d2e1e] font-semibold mb-3">Чаты</p>
+              <p className="font-sans text-sm text-[#6b5744] leading-relaxed mb-4">
+                Пожалуйста, вступайте в чаты, чтобы быть в курсе всех организационных моментов.
+              </p>
+              <div className="space-y-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-full bg-[#c9a96e]/10 flex items-center justify-center">
+                    <MessageCircle className="w-4 h-4 text-[#c9a96e]" />
+                  </div>
+                  <a
+                    href="https://t.me/+aYStBkH1uFxjNWU6"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-sans text-sm text-[#c9a96e] tracking-wide hover:text-[#a8854e] transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a96e] rounded"
+                  >
+                    Чат в Telegram
+                  </a>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-full bg-[#c9a96e]/10 flex items-center justify-center">
+                    <MessageCircle className="w-4 h-4 text-[#c9a96e]" />
+                  </div>
+                  <a
+                    href="https://max.ru/join/Rw_CfabMY5hls8zn20ZBs9G22_OdAFcmhYjBCfTiZF4"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-sans text-sm text-[#c9a96e] tracking-wide hover:text-[#a8854e] transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a96e] rounded"
+                  >
+                    Чат в MAX
                   </a>
                 </div>
               </div>

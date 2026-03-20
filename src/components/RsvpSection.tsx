@@ -3,7 +3,12 @@ import type { FormEvent } from 'react';
 import { motion } from 'framer-motion';
 
 type AttendanceOption = 'yes' | 'no' | '';
-type FormErrors = { fullName?: string; attendance?: string };
+type FormErrors = {
+  fullName?: string;
+  attendance?: string;
+  companionFullName?: string;
+  companionAttendance?: string;
+};
 
 const RSVP_EMAIL = import.meta.env.VITE_RSVP_EMAIL;
 const attendanceLabels: Record<Exclude<AttendanceOption, ''>, string> = {
@@ -14,6 +19,9 @@ const attendanceLabels: Record<Exclude<AttendanceOption, ''>, string> = {
 const RsvpSection: React.FC = () => {
   const [fullName, setFullName] = useState('');
   const [attendance, setAttendance] = useState<AttendanceOption>('');
+  const [includeCompanion, setIncludeCompanion] = useState(false);
+  const [companionFullName, setCompanionFullName] = useState('');
+  const [companionAttendance, setCompanionAttendance] = useState<AttendanceOption>('');
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState('');
@@ -30,6 +38,14 @@ const RsvpSection: React.FC = () => {
 
     if (!attendance) {
       nextErrors.attendance = 'Пожалуйста, выберите вариант ответа';
+    }
+
+    if (includeCompanion && !companionFullName.trim()) {
+      nextErrors.companionFullName = 'Пожалуйста, укажите имя и фамилию спутника';
+    }
+
+    if (includeCompanion && !companionAttendance) {
+      nextErrors.companionAttendance = 'Пожалуйста, выберите вариант ответа для спутника';
     }
 
     setErrors(nextErrors);
@@ -59,6 +75,11 @@ const RsvpSection: React.FC = () => {
         body: JSON.stringify({
           name: fullName.trim(),
           attendance: attendanceLabels[attendance as Exclude<AttendanceOption, ''>],
+          companion_name: includeCompanion ? companionFullName.trim() : '',
+          companion_attendance:
+            includeCompanion && companionAttendance
+              ? attendanceLabels[companionAttendance as Exclude<AttendanceOption, ''>]
+              : '',
           _subject: 'Новый ответ из анкеты гостя',
           _captcha: 'false',
         }),
@@ -71,6 +92,9 @@ const RsvpSection: React.FC = () => {
       setSubmitMessage('Спасибо. Ваш ответ отправлен.');
       setFullName('');
       setAttendance('');
+      setIncludeCompanion(false);
+      setCompanionFullName('');
+      setCompanionAttendance('');
       setErrors({});
     } catch {
       setSubmitError('Не удалось отправить ответ. Попробуйте ещё раз чуть позже.');
@@ -171,6 +195,102 @@ const RsvpSection: React.FC = () => {
               <p className="mt-3 font-sans text-sm text-[#a05a4a]">{errors.attendance}</p>
             )}
           </div>
+
+          <div className="mb-8">
+            <label className="inline-flex items-center gap-3 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={includeCompanion}
+                onChange={(event) => {
+                  const nextValue = event.target.checked;
+                  setIncludeCompanion(nextValue);
+                  setSubmitError('');
+                  if (!nextValue) {
+                    setCompanionFullName('');
+                    setCompanionAttendance('');
+                  }
+                  setErrors((current) => ({
+                    ...current,
+                    companionFullName: undefined,
+                    companionAttendance: undefined,
+                  }));
+                }}
+                className="h-5 w-5 rounded border-[#c9a96e]/40 text-[#3d2e1e] focus:ring-[#c9a96e]"
+              />
+              <span className="font-sans text-base text-[#6b5744]">
+                Добавить спутника
+              </span>
+            </label>
+          </div>
+
+          {includeCompanion && (
+            <div className="mb-10 rounded-3xl border border-[#c9a96e]/20 bg-[#f9f5ef]/60 p-6">
+
+              <div className="mb-8">
+                <label htmlFor="companion-full-name" className="block font-serif text-xl text-[#3d2e1e] mb-3">
+                  Имя и фамилия дополнительного гостя
+                </label>
+                <input
+                  id="companion-full-name"
+                  type="text"
+                  value={companionFullName}
+                  onChange={(event) => {
+                    setCompanionFullName(event.target.value);
+                    setErrors((current) => ({ ...current, companionFullName: undefined }));
+                    setSubmitError('');
+                  }}
+                  placeholder="ФИО"
+                  className="w-full rounded-2xl border border-[#c9a96e]/30 bg-white px-5 py-4 font-sans text-base text-[#3d2e1e] placeholder:text-[#b7aa9b] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a96e]"
+                />
+                {errors.companionFullName && (
+                  <p className="mt-2 font-sans text-sm text-[#a05a4a]">{errors.companionFullName}</p>
+                )}
+              </div>
+
+              <div>
+                <p className="font-serif text-xl text-[#3d2e1e] mb-4">Сможет присутствовать дополнительный гость?</p>
+                <div className="space-y-4">
+                  {[
+                    { value: 'yes', label: 'Да, сможет присутствовать' },
+                    { value: 'no', label: 'К сожалению, не сможет присутствовать' },
+                  ].map((option) => (
+                    <label key={`companion-${option.value}`} className="flex items-center gap-4 cursor-pointer">
+                      <span
+                        className={`flex h-7 w-7 items-center justify-center rounded-full border transition-colors duration-200 ${
+                          companionAttendance === option.value
+                            ? 'border-[#c9a96e] bg-[#c9a96e]/15'
+                            : 'border-[#8a7560]/60 bg-transparent'
+                        }`}
+                        aria-hidden="true"
+                      >
+                        <span
+                          className={`h-3 w-3 rounded-full bg-[#c9a96e] transition-opacity duration-200 ${
+                            companionAttendance === option.value ? 'opacity-100' : 'opacity-0'
+                          }`}
+                        />
+                      </span>
+                      <input
+                        type="radio"
+                        name="companion-attendance"
+                        value={option.value}
+                        checked={companionAttendance === option.value}
+                        onChange={(event) => {
+                          setCompanionAttendance(event.target.value as AttendanceOption);
+                          setErrors((current) => ({ ...current, companionAttendance: undefined }));
+                          setSubmitError('');
+                        }}
+                        className="sr-only"
+                      />
+                      <span className="font-sans text-base text-[#6b5744]">{option.label}</span>
+                    </label>
+                  ))}
+                </div>
+                {errors.companionAttendance && (
+                  <p className="mt-3 font-sans text-sm text-[#a05a4a]">{errors.companionAttendance}</p>
+                )}
+              </div>
+            </div>
+          )}
 
           <div className="flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between">
             <button

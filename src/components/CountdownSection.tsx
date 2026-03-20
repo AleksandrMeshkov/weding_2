@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import { MapPin } from 'lucide-react';
 
 const WEDDING_DATE = new Date('2026-08-22T15:30:00');
-const VENUE_MAP_URL = 'https://yandex.ru/maps/?text=PARUS%20White%20Hall%20%D0%91%D0%B5%D1%80%D0%B5%D0%B3%D0%BE%D0%B2%D0%B0%D1%8F%20%D1%83%D0%BB%D0%B8%D1%86%D0%B0%2C%2056';
 
 interface TimeLeft {
   days: number;
@@ -46,7 +45,7 @@ const CountdownSection: React.FC = () => {
           className="mb-12"
         >
           <p className="font-sans text-xs text-[#c9a96e] tracking-[0.4em] uppercase mb-4">
-            #ДОРОГИЕ РОДНЫЕ И ДРУЗЬЯ!
+            ДОРОГИЕ РОДНЫЕ И ДРУЗЬЯ!
           </p>
           <h2 className="font-serif text-2xl md:text-3xl text-[#3d2e1e] mb-5 leading-relaxed">
             Дорогие родные и друзья!
@@ -120,24 +119,18 @@ const CountdownSection: React.FC = () => {
           <p className="font-sans text-xs text-[#c9a96e] tracking-[0.4em] uppercase mb-4">
             Место проведения
           </p>
-          <a
-            href={VENUE_MAP_URL}
-            target="_blank"
-            rel="noreferrer"
-            className="bg-white/60 border border-[#c9a96e]/20 rounded-2xl p-6 shadow-sm inline-block transition-colors duration-200 hover:bg-white/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a96e]"
-            aria-label="Открыть место проведения на карте"
-          >
+          <div className="bg-white/60 border border-[#c9a96e]/20 rounded-2xl p-6 shadow-sm inline-block">
             <div className="flex items-start gap-3">
               <div className="w-9 h-9 rounded-full bg-[#c9a96e]/10 flex items-center justify-center shrink-0 mt-0.5">
                 <MapPin className="w-4 h-4 text-[#c9a96e]" />
               </div>
               <div className="text-left">
-                <p className="font-serif text-xl text-[#3d2e1e] font-semibold mb-1">PARUS</p>
-                <p className="font-sans text-base text-[#8a7560] mb-1">Банкетный зал «White Hall»</p>
-                <p className="font-sans text-base text-[#6b5744] underline decoration-[#c9a96e]/40 underline-offset-4">Береговая улица, 56</p>
+                <p className="font-serif text-lg text-[#3d2e1e] font-semibold mb-1">PARUS</p>
+                <p className="font-sans text-sm text-[#8a7560] mb-1">Банкетный зал «White Hall»</p>
+                <p className="font-sans text-sm text-[#6b5744]">Береговая улица, 56</p>
               </div>
             </div>
-          </a>
+          </div>
         </motion.div>
       </div>
     </section>

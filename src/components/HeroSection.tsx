@@ -24,7 +24,7 @@ const HeroSection: React.FC = () => {
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.9 }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
           className="flex justify-center"
         >
           <div className="relative">
@@ -45,7 +45,7 @@ const HeroSection: React.FC = () => {
           initial={{ opacity: 0, x: 30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.9, delay: 0.2 }}
+          transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
           className="flex flex-col items-center"
         >
           <p className="font-sans font-semibold text-sm md:text-base text-[#a8854e] tracking-[0.3em] uppercase mb-3 sm:mb-4">Дата свадьбы</p>

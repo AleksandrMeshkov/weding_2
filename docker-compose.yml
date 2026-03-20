@@ -1,0 +1,12 @@
+services:
+  wedding-site:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: wedding-invite:latest
+    container_name: wedding-invite
+    restart: unless-stopped
+    env_file:
+      - .env.local
+    ports:
+      - "8080:80"

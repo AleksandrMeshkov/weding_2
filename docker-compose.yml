@@ -7,6 +7,6 @@ services:
     container_name: wedding-invite
     restart: unless-stopped
     env_file:
-      - .env.local
+      - .env.deploy
     ports:
-      - "8080:81"
+      - "127.0.0.1:8081:80"

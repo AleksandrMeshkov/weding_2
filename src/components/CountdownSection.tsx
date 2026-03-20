@@ -3,6 +3,8 @@ import { motion } from 'framer-motion';
 import { MapPin } from 'lucide-react';
 
 const WEDDING_DATE = new Date('2026-08-22T15:30:00');
+const VENUE_MAP_URL =
+  'https://2gis.ru/search/%D0%91%D0%B5%D1%80%D0%B5%D0%B3%D0%BE%D0%B2%D0%B0%D1%8F%2056';
 
 interface TimeLeft {
   days: number;
@@ -44,9 +46,6 @@ const CountdownSection: React.FC = () => {
           transition={{ duration: 0.8 }}
           className="mb-12"
         >
-          <p className="font-sans text-xs text-[#c9a96e] tracking-[0.4em] uppercase mb-4">
-            ДОРОГИЕ РОДНЫЕ И ДРУЗЬЯ!
-          </p>
           <h2 className="font-serif text-2xl md:text-3xl text-[#3d2e1e] mb-5 leading-relaxed">
             Дорогие родные и друзья!
           </h2>
@@ -127,10 +126,20 @@ const CountdownSection: React.FC = () => {
               <div className="text-left">
                 <p className="font-serif text-lg text-[#3d2e1e] font-semibold mb-1">PARUS</p>
                 <p className="font-sans text-sm text-[#8a7560] mb-1">Банкетный зал «White Hall»</p>
-                <p className="font-sans text-sm text-[#6b5744]">Береговая улица, 56</p>
+                <a
+                  href={VENUE_MAP_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-sans text-sm text-[#6b5744] underline decoration-[#c9a96e]/50 underline-offset-4 hover:text-[#3d2e1e] transition-colors"
+                >
+                  Береговая улица, 56
+                </a>
               </div>
             </div>
           </div>
+          <p className="font-sans text-xs text-[#8a7560] mt-3">
+            Нажмите на адрес, чтобы открыть маршрут на карте.
+          </p>
         </motion.div>
       </div>
     </section>

@@ -6,7 +6,7 @@ const schedule = [
   {
     time: '15:30',
     title: 'Сбор гостей',
-    description: 'Добро пожаловать! Встреча гостей, приветственные напитки и живая музыка.',
+    description: 'Добро пожаловать! Встреча гостей, приветственные напитки и угощения.',
   },
   {
     time: '16:00',
@@ -36,7 +36,6 @@ const ScheduleSection: React.FC = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-14"
         >
-          <p className="font-sans text-xs text-[#c9a96e] tracking-[0.4em] uppercase mb-3">22 августа 2026</p>
           <h2 className="font-serif text-3xl md:text-4xl text-[#3d2e1e] tracking-wide">
             План дня
           </h2>

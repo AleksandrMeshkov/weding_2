@@ -50,14 +50,6 @@ const InvitationSection: React.FC = () => {
             Ульяна
           </h2>
 
-          <div className="flex items-center justify-center gap-6 mb-8">
-            <div className="h-px flex-1 bg-[#c9a96e]/30 max-w-[60px]" aria-hidden="true" />
-            <p className="font-serif text-xl text-[#8a7560] tracking-[0.2em]">
-              22 <span className="text-[#c9a96e]/60 mx-2">|</span> августа <span className="text-[#c9a96e]/60 mx-2">|</span> 2026
-            </p>
-            <div className="h-px flex-1 bg-[#c9a96e]/30 max-w-[60px]" aria-hidden="true" />
-          </div>
-
           <p className="font-sans text-sm text-[#6b5744] leading-relaxed mb-10 max-w-md mx-auto">
             Мы с радостью приглашаем вас разделить с нами этот незабываемый день, наполненный любовью, теплом и счастьем.
           </p>

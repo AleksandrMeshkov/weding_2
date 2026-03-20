@@ -44,13 +44,13 @@ const Home: React.FC = () => {
         transition={{ duration: 0.8, delay: 0.3 }}
       >
         <main>
-          <HeroSection />
           <InvitationSection />
+          <HeroSection />
           <ScheduleSection />
           <CountdownSection />
+          <WishesSection />
           <RsvpSection />
           <DressCodeSection />
-          <WishesSection />
         </main>
         <WeddingFooter />
       </motion.div>

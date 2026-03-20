@@ -6,6 +6,7 @@ import dresTwo from '../../img/dres_two.png';
 import dresThree from '../../img/dres_three.png';
 import dresFour from '../../img/dres_four.png';
 import dresFive from '../../img/dres_five.png';
+import dresSix from '../../img/dres_six.png';
 
 const palette = [
   { name: 'Образ 1', image: dresOne },
@@ -13,6 +14,7 @@ const palette = [
   { name: 'Образ 3', image: dresThree },
   { name: 'Образ 4', image: dresFour },
   { name: 'Образ 5', image: dresFive },
+  { name: 'Образ 6', image: dresSix },
 ];
 
 const DressCodeSection: React.FC = () => {

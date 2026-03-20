@@ -11,4 +11,4 @@ FROM nginx:1.27-alpine
 COPY --from=build /app/dist /usr/share/nginx/html
 COPY deploy/nginx/default.conf.template /etc/nginx/templates/default.conf.template
 
-EXPOSE 80
+EXPOSE 81

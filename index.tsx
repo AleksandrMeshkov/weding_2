@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
 import './styles.css';
 
-// Send logs to parent frame (like a preview system)
 function postToParent(level: string, ...args: any[]): void {
   if (window.parent !== window) {
     window.parent.postMessage(
@@ -17,7 +16,6 @@ function postToParent(level: string, ...args: any[]): void {
   }
 }
 
-// Global error handler
 window.onerror = function (message, source, lineno, colno, error) {
   const errPayload = {
     message,
@@ -26,12 +24,12 @@ window.onerror = function (message, source, lineno, colno, error) {
     colno,
     stack: error?.stack,
   };
-  postToParent('error', '[Meku_Error_Caught]', errPayload);
+  postToParent('error', '[App_Error_Caught]', errPayload);
 };
 
 // Unhandled promise rejection
 window.onunhandledrejection = function (event) {
-  postToParent('error', '[Meku_Error_Caught]', { reason: event.reason });
+  postToParent('error', '[App_Error_Caught]', { reason: event.reason });
 };
 
 // Patch console

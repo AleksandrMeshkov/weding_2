@@ -30,7 +30,6 @@ const DressCodeSection: React.FC = () => {
             transition={{ duration: 0.8 }}
           >
             <p className="font-sans font-semibold text-sm md:text-base text-[#a8854e] tracking-[0.4em] uppercase mb-2">ДРЕСС-КОД</p>
-            <h2 className="font-serif text-3xl md:text-4xl text-[#3d2e1e] mb-4">Цветовая палитра</h2>
             <div className="w-10 h-px bg-[#c9a96e]/50 mb-5" aria-hidden="true" />
             <p className="font-sans text-base md:text-lg text-[#6b5744] leading-relaxed mb-6">
               Мы будем очень благодарны, если вы поддержите цветовую палитру нашей свадьбы:
@@ -61,7 +60,6 @@ const DressCodeSection: React.FC = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <p className="font-sans font-semibold text-sm md:text-base text-[#a8854e] tracking-[0.4em] uppercase mb-2">КОНТАКТЫ</p>
-            <h2 className="font-serif text-3xl md:text-4xl text-[#3d2e1e] mb-4">Координатор</h2>
             <div className="w-10 h-px bg-[#c9a96e]/50 mb-5" aria-hidden="true" />
             <p className="font-sans text-base md:text-lg text-[#6b5744] leading-relaxed mb-6">
               По всем вопросам, связанным с торжественным вечером, просим обращаться к нашему координатору:

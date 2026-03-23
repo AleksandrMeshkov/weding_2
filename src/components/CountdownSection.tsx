@@ -36,7 +36,7 @@ const CountdownSection: React.FC = () => {
   }, []);
 
   return (
-    <section className="bg-[#f9f5ef] py-24 px-6">
+    <section className="bg-[#f9f5ef] pt-24 pb-14 px-6">
       <div className="max-w-2xl mx-auto text-center">
         {/* Greeting */}
         <motion.div
